@@ -41,3 +41,24 @@ CREATE TABLE treatments (
     PRIMARY KEY(id)
 );
 
+CREATE TABLE medical_histories_treatments (
+    id INT GENERATED ALWAYS AS IDENTITY,
+    medical_history_id INT,
+    treatment_id INT,
+    PRIMARY KEY(id)
+);
+
+ALTER TABLE
+    invoices ADD CONSTRAINT fk_medical_history_id FOREIGN KEY (medical_history_id) REFERENCES medical_histories(id);
+
+ALTER TABLE
+    invoice_items ADD CONSTRAINT fk_invoice_id FOREIGN KEY (invoice_id) REFERENCES invoices(id);
+
+ALTER TABLE
+    invoice_items ADD CONSTRAINT fk_treatment_id FOREIGN KEY (treatment_id) REFERENCES treatments(id);
+
+ALTER TABLE
+    medical_histories_treatments ADD CONSTRAINT fk_medical_histories_treatments_medical_history_id FOREIGN KEY (medical_history_id) REFERENCES medical_histories(id);
+
+ALTER TABLE
+    medical_histories_treatments ADD CONSTRAINT fk_medical_histories_treatment_treatment_id FOREIGN KEY (treatment_id) REFERENCES treatments(id);
